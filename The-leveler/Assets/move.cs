@@ -5,12 +5,18 @@ using UnityEngine;
 public class move : MonoBehaviour
 {
 
+    public Rigidbody2D body;
+    public SpriteRenderer spriteRenderer;
+    public List<Sprite> nSprites;
+    public List<Sprite> neSprites;
+    public List<Sprite> eSprites;
+    public List<Sprite> seSprites;
+    public List<Sprite> sSprites;
+    public float walkSpeed;
+    public float frameRate;
 
-    public float moveHorizontal;
-    public float moveVertical;
-    public float speed;
-    public Rigidbody2D player;
-    private Vector2 movement;
+    Vector2 direction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,13 +26,11 @@ public class move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // get direction of input
+        direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+        
 
-        moveHorizontal = Input.GetAxis("Horizontal") * speed;
-        moveVertical = Input.GetAxis("Vertical") * speed;
-
-        movement = new Vector2(moveHorizontal, moveVertical);
-        player.velocity = movement * speed;
-
-
+        // set walk speed based on direction
+        body.velocity = direction * walkSpeed;
     }
 }
